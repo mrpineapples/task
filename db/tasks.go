@@ -45,6 +45,34 @@ func CreateTask(task string) (int, error) {
 	return id, nil
 }
 
+// AllTasks returns a list of all items in the database
+func AllTasks() ([]Task, error) {
+	var tasks []Task
+	err := db.View(func(tx *bolt.Tx) error {
+		b := tx.Bucket(taskBucket)
+		c := b.Cursor()
+		for k, v := c.First(); k != nil; k, v = c.Next() {
+			tasks = append(tasks, Task{
+				Key:   btoi(k),
+				Value: string(v),
+			})
+		}
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return tasks, nil
+}
+
+// DeleteTask deletes a task from the database
+func DeleteTask(key int) error {
+	return db.Update(func(tx *bolt.Tx) error {
+		b := tx.Bucket(taskBucket)
+		return b.Delete(itob(key))
+	})
+}
+
 func itob(v int) []byte {
 	bs := make([]byte, 8)
 	binary.BigEndian.PutUint64(bs, uint64(v))
