@@ -3,7 +3,7 @@
 CLI to keep track of your tasks
 
 To use Task
-```go
+```zsh
 go get github.com/mrpineapples/task
 cd $GOPATH/src/github.com/mrpineapples/task
 go install
