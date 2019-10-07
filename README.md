@@ -30,7 +30,7 @@ Flags:
 
 Use "task [command] --help" for more information about a command.
 ```
-_Note: Using `task add` creates a `tasks.db` file in your home directory (usually `/Users/NAME` on unix machines). This is the database which the CLI will interact with._
+_Note: The first time you use `task add` it will create a `tasks.db` file in your home directory (usually `/Users/NAME` on unix machines). This is the database which the CLI will interact with._
 
 #### Example
 ```
